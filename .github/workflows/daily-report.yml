@@ -1,0 +1,44 @@
+name: Daily NREGA Report
+
+on:
+  schedule:
+    - cron: "30 1 * * *"   # 7:00 AM IST (1:30 AM UTC)
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Merged Report Script
+        run: npm run run-merged
+
+      - name: Run Muster Report Script
+        run: npm run run-muster
+
+      - name: Send Email with Report
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.GMAIL_USER }}
+          password: ${{ secrets.GMAIL_PASS }}
+          subject: "Daily NREGA Report"
+          to: ${{ secrets.SEND_TO }}
+          from: ${{ secrets.GMAIL_USER }}
+          secure: false
+          body: "Attached is today's automated NREGA report."
+          attachments: |
+            **/*.xlsx
+            **/*.xls
