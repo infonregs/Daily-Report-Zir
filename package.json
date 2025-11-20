@@ -1,0 +1,17 @@
+{
+  "name": "daily-nrega-report",
+  "version": "1.0.0",
+  "main": "Merged ongoing & e MR.js",
+  "scripts": {
+    "run-merged": "node \"Merged ongoing & e MR.js\"",
+    "run-muster": "node \"MUSTER TRACK ZIR 2025-26 1.js\""
+  },
+  "dependencies": {
+    "puppeteer": "^21.3.2",
+    "exceljs": "^4.4.0",
+    "xlsx-js-style": "^1.0.6",
+    "axios": "^1.6.7",
+    "whatsapp-web.js": "^1.21.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}
